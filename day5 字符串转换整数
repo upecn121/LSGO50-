@@ -18,9 +18,9 @@ public:
         while(++cur<n&&isdigit(str[cur]))
         {
             int t=(str[cur]-'0')*flag;
-            if(tem>INT_MAX/10||(tem==INT_MAX&&t>7))
+            if(tem>INT_MAX/10||(tem==INT_MAX/10&&t>7))
                 return INT_MAX;
-            if(tem<INT_MIN/10||(tem==INT_MIN&&t<-8))
+            if(tem<INT_MIN/10||(tem==INT_MIN/10&&t<-8))
                 return INT_MIN;
             tem=tem*10+t;
         }
