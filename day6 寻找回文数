@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        int n,i;
+        int s=x;
+        int mid=0;
+        if(x<0||(x%10==0&&x!=0))//排除负数和10的倍数
+        return false;
+        for(n=0;s!=0;n++)//n为数位
+        {
+            s=s/10;
+        }
+        for(i=1;i<=n/2;i++)
+        {
+            mid=mid*10+x%10;
+            x=x/10;
+        }
+        if(mid==x||x/10==mid)
+        return true;
+        else return false;
+    }
+};
