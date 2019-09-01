@@ -1,0 +1,19 @@
+//使用双指针遍历整个数组
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int i=0;
+        int j=height.size()-1;
+        int temp1,temp2;//分别存储矩形高度和面积
+        int res=0;
+        while(i<j)
+        {
+            temp1=min(height[i],height[j]);
+            temp2=temp1*(j-i);
+            res=max(res,temp2);
+            if(height[i]<=height[j]) i++;
+            else j--;
+        }
+        return res;
+        }
+};
