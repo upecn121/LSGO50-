@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target){
+        sort(nums.begin(),nums.end());
+        if(nums.size()<3) return {};
+        int temp,res,sum;//temp存储临时的三数之和，res用于存储三数之和与目标值的距离，sum用于存储最靠近目标的值
+        res=INT_MAX;
+        for(int i=0;i<nums.size();i++)//遍历所有数字
+        {
+           int fix=nums[i];
+           int l=i+1;
+           int r=nums.size()-1;
+           while(l<r)
+           {
+               temp=fix+nums[l]+nums[r];
+               if(abs(temp-target)<=res) res=abs(temp-target),sum=temp;//更新三数之和以及和与目标的差
+               if(temp<target) l++;
+               else if(temp>target) r--;
+               else return target;
+           }    
+        }
+        return sum;
+    }
+};
