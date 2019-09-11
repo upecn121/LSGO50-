@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> res;
+        backtrack(nums,res,0);
+        return res;
+    }
+    void swap(int &a,int &b)//交换两个变量的值.引用型变量用&
+  {
+      int temp;
+      temp=a;
+      a=b;
+      b=temp;
+  }
+     void backtrack(vector<int> &nums,vector<vector<int>> &res,int i){//轮流将num[i]~num[n-1]和num[i]交换
+         if(i==nums.size())
+             res.push_back(nums);
+         for(int j=i;j<nums.size();j++){
+             swap(nums[i],nums[j]);
+             backtrack(nums,res,i+1);
+             swap(nums[i],nums[j]);//交换回循环前的初始状态
+         }
+     }
+};
+//时间复杂度应该为O(n!)
