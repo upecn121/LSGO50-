@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> ans;
+        if(matrix.empty()) return ans;
+        int u=0;//定义上边界；其后依次为下，左，右边界
+        int d=matrix.size()-1;
+        int l=0;
+        int r=matrix[0].size()-1;
+        while(true)
+        {
+            for(int i=l;i<=r;i++) ans.push_back(matrix[u][i]);//向左
+            if(++u>d) break;//更新上边界；如果上下边界交错则说明循环结束；其后以此类推
+            for(int j=u;j<=d;j++) ans.push_back(matrix[j][r]);//向下
+            if(--r<l) break;
+            for(int i=r;i>=l;i--) ans.push_back(matrix[d][i]);//向左
+            if(--d<u) break;
+            for(int j=d;j>=u;j--) ans.push_back(matrix[j][l]);//向上
+            if(++l>r) break;
+        }
+        return ans;
+    }
+};
+//学习了网上大神的做法。时间复杂度为O(n),n为矩阵元素个数
