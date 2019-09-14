@@ -1,0 +1,26 @@
+
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        if(n==0) return {{}};
+        vector<vector<int>> ans(n,vector<int>(n,0));//定义一个n*n的空矩阵
+        int u=0;//定义上边界；其后依次为下，左，右边界
+        int d=n-1;
+        int l=0;
+        int r=n-1;
+        int temp=1;
+        while(true)
+        {
+            for(int i=l;i<=r;i++) ans[u][i]=temp++;//向左
+            if(++u>d) break;//更新上边界；如果上下边界交错则说明循环结束；其后以此类推
+            for(int j=u;j<=d;j++) ans[j][r]=temp++;//向下
+            if(--r<l) break;
+            for(int i=r;i>=l;i--) ans[d][i]=temp++;//向左
+            if(--d<u) break;
+            for(int j=d;j>=u;j--) ans[j][l]=temp++;//向上
+            if(++l>r) break;
+        }
+        return ans;
+    }
+};
+//感言：和上一个day18 螺旋矩阵类似。我只是把代码改了一下
