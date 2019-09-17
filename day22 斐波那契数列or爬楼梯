@@ -1,0 +1,84 @@
+
+//解法一：动态规划法。问题可以被分成多个子问题，爬第n阶楼梯的方法数量，等于 2 部分之和。时间复杂度O（n）
+class Solution
+{
+public:
+    int climbStairs(int n)
+    {
+        if (n == 1)
+            return 1;
+        vector<int> s(n + 1, 0);
+        s[1] = 1;
+        s[2] = 2;
+        for (int i = 3; i <= n; i++)
+        {
+            s[i] = s[i - 1] + s[i - 2];
+        }
+        return s[n];
+    }
+};
+
+//解法二：只用三变量。减少空间开销。时间复杂度为o（n）
+class Solution
+{
+public:
+    int climbStairs(int n)
+    {
+        int i=1;
+        int j=2;
+        int s;
+        if(n==1) return 1;
+        if(n==2) return 2;
+        for(int k=0;k<n-2;k++)
+        {
+            s=i+j;
+            i=j;
+            j=s;
+        }
+        return j;
+    }
+};
+
+
+//其他解法：数学公式法。时间复杂度：O(log(n))，powpow 方法将会用去 log(n)log(n) 的时间
+class Solution {
+public:
+    int climbStairs(int n) {
+        double sqrt5=sqrt(5);
+        double fibn=pow((1+sqrt5)/2,n+1)-pow((1-sqrt5)/2,n+1);
+        return (int)(fibn/sqrt5);
+    }
+};
+
+
+//暴力递归法。时间复杂度：O(2^n)。因为树形递归的大小为 2^n2 
+class Solution {
+public:
+    int climbStairs(int n) {
+        return climb_stairs(0,n);
+    }
+    int climb_stairs(int i,int n)
+    {
+        if(i>n) return 0;
+        if(i==n) return 1;
+        return climb_stairs(i+1,n)+climb_stairs(i+2,n);
+    }
+};
+
+
+//递归法优化（增加记忆数组），减少重复计算。优化后时间复杂度为O(n)
+class Solution {
+public:
+    int climbStairs(int n) {
+        vector<int> demo(n+1,-1);
+        return climb_stairs(0,n,demo);
+    }
+    int climb_stairs(int i,int n,vector<int> &demo)
+    {
+        if(i>n) return 0;
+        if(i==n) return 1;
+        if(demo[i]>0) return demo[i];
+        demo[i]=climb_stairs(i+1,n,demo)+climb_stairs(i+2,n,demo);
+        return demo[i];
+    }
+};
