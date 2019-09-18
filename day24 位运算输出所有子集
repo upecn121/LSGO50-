@@ -1,0 +1,15 @@
+class Solution {
+   vector<vector<int>> subsets(vector<int>& nums) {
+        int S = nums.size();
+        int N = 1 << S;//定义一个“终点”。举例：N-1为11111111111，意味着所有元素都已经被记录在该二进制数上了
+        vector<vector<int> > res;//二维数组存储每一个子
+        for (int i = 0; i < N; ++i) {  //比如说：i从00000遍历到11111.  i的每一个状态都意味着一种子集。遍历意味着得到所有子集
+            vector<int> v;//存储当前i代表着的子集
+            for (int j = 0; j < S; ++j)//j的数值为0，1，2，3···以此类推。j意味着nums数组中的第j位元素
+                if (i & (1 << j))//"1<<j"意味着1，10，100···通过位与运算可以判断第j位元素是否在当前i代表着的子集中
+                    v.push_back(nums[j]);//如果存在则将第j位元素置入v数组
+            res.push_back(v);//循环完成后v即为i代表的子集。将v置入答案数组
+        }
+        return res;
+    }
+};
