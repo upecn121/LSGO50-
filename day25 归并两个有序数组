@@ -1,0 +1,17 @@
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int p1=m-1;//追踪数组1最大值的指针
+        int p2=n-1;//追踪数组2最大值的指针
+        int p=m+n-1;//结果数组的末尾，用于存放比较结果
+        while(p1>=0&&p2>=0)
+        {
+            if(nums1[p1]>=nums2[p2]) nums1[p--]=nums1[p1--];
+            else nums1[p--]=nums2[p2--];
+        }
+        while(p2>=0) /*循环结束时，若p2=-1（即数组2已经遍历完），此时不需要操作
+                    若p2>-1(即数组1已经遍历完)，则需要继续将数组2归并到结果中*/
+            nums1[p--]=nums2[p2--];
+    }
+};
+//基本思路：此方法从数组1的末尾开始归并数组。时间复杂度为o（m+n），m、n分别是数组1、2的长度
