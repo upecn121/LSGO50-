@@ -1,0 +1,14 @@
+假如你每次都在波谷买入在波峰卖出，你当然是最赚的，也就是说把上坡路路程算出来就可以了
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int maxprofit = 0;
+        for(int i = 1; i<prices.size(); i++){
+            if(prices[i] - prices[i-1] > 0){
+                maxprofit += prices[i] - prices[i-1]; 
+            }
+        }
+        return maxprofit;
+    }
+};
