@@ -1,0 +1,22 @@
+假设链表头结点到入环点距离为a，则在快慢指针相遇后，慢指针再走a步到达入环点，这里使用一个临时指针从开始节点走，当临时指针和慢指针相遇的时候，即为入环点。
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head)
+    {
+        ListNode * p_slow = head, * p_fast = head, * p_temp = head;
+        bool has_cycle = false;
+        while(p_fast != NULL && p_fast->next != NULL) {
+            p_slow = p_slow->next;
+            p_fast = p_fast->next->next;
+            if(p_slow == p_fast) {
+                has_cycle = true;
+                while(p_temp != p_slow) {
+                    p_temp = p_temp->next;
+                    p_slow = p_slow->next;
+                }
+                break;
+            }
+        }
+        return has_cycle ? p_temp : NULL;
+    }
+};
