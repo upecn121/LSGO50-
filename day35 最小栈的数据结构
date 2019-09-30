@@ -1,0 +1,101 @@
+/*最小栈
+设计一个支持 push，pop，top 操作，并能在常数时间内检索到最小元素的栈。
+
+push(x) -- 将元素 x 推入栈中。
+pop() -- 删除栈顶的元素。
+top() -- 获取栈顶元素。
+getMin() -- 检索栈中的最小元素。
+示例:
+
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin(); --> 返回 -3.
+minStack.pop();
+minStack.top(); --> 返回 0.
+minStack.getMin(); --> 返回 -2.
+
+解法1：用两个栈实现最小栈功能
+一个栈s存放数据，另一个栈min存放前栈中最小的数据
+*/
+
+class MinStack {
+public:
+    stack<int> s;//数据栈
+    stack<int> min;//辅助栈
+    /** initialize your data structure here. */
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        s.push(x);
+        if(min.empty()||x<=min.top())
+        {
+            min.push(x);
+        }
+    }
+    
+    void pop() {
+        if(s.top()==min.top())
+            min.pop();
+        s.pop();
+    }
+    
+    int top() {
+        return s.top();
+    }
+    int getMin() {
+        return min.top();
+    }
+};
+解法2：一个栈实现
+栈中两个数据位合成一个单元，第一个数据位存放当前数据到末尾的最小值，第二个数据位存放当前数据。
+
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    stack<int> s;
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        if(s.empty())
+        {
+            s.push(x);
+            s.push(x);
+        }
+        else
+        {
+            int temp=s.top();
+            s.push(x);
+            if(x<temp)
+            {
+                s.push(x);
+            }
+            else
+            {
+                s.push(temp);
+            }
+        }
+    }
+    
+    void pop() {
+        s.pop();
+        s.pop();
+    }
+    
+    int top() {
+        int temp=s.top();
+        s.pop();
+        int top=s.top();
+        s.push(temp);
+        return top;
+    }
+    
+    int getMin() {
+        return s.top();
+    }
+};
