@@ -1,0 +1,58 @@
+class Solution {
+public:
+    // 众数：找到出现次数大于半数的那个数
+    // 大前提：数组非空、总是存在众数
+    // 思路1：暴力统计各个数出现的次数
+    int majorityElement(vector<int>& nums) {
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            int temp=nums[i];
+            int s=0;
+            for(int j=0;j<n;j++)
+            {
+                if(temp==nums[j])
+                s++;
+            }
+            if(s>(n/2)) return temp;
+        }
+        return -1;
+    }
+};
+//以下代码尚未实现
+//2.摩尔投票法。每一次遇到0时遗忘相同数量的众数和其他数
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int target = nums[0];
+        int count = 1;
+        for(int i = 1;i<nums.size();i++)
+            if(nums[i]!=target)  
+            {  
+                count--;
+                if(count==0)
+                {
+                    target = nums[i];
+                    count = 1;
+                }
+            }else count++;
+      return target;
+    }
+};
+//3.哈希表
+class Solution {
+    public int majorityElement(int[] nums) {
+    Map<Integer, Integer> map = new HashMap<>();
+    // maxNum 表示元素，maxCount 表示元素出现的次数
+    int maxNum = 0, maxCount = 0;
+    for (int num: nums) {
+      int count = map.getOrDefault(num, 0) + 1;
+      map.put(num, count);
+      if (count > maxCount) {
+        maxCount = count;
+        maxNum = num;
+      }
+    }
+    return maxNum;
+  }
+};
