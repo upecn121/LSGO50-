@@ -1,0 +1,26 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+//1.头插法，将链表的点依次插入头节点的前方（类似堆栈），最后头节点被顶到最后面
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(!head) return NULL;
+        ListNode* r;
+        ListNode* p=head->next;
+        head->next=NULL;//将头节点与链表分离；第一个头节点作为新链表的尾节点，next自然指向NULL
+        while(p!=NULL)//将非空节点插入头节点之前
+        {
+            r=p->next;//p节点即将指向head，所以要先保存p的下一个节点，以待下个循环用
+            p->next=head;//头插法
+            head=p;//更新头节点
+            p=r;
+        }
+        return head;
+    }
+};
